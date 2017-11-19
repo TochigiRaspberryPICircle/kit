@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Control Tank</title>
+  </head>
+
+  <script type="text/javascript" src="/webiopi.js"></script>
+  <script type="text/javascript" src="/jquery.js"></script>
+  <script type="text/javascript">
+      var webiopi = webiopi();
+      webiopi.ready(function() {
+         webiopi.refreshGPIO(true);
+         webiopi.setFunction(8, "OUT");
+         webiopi.setFunction(7, "OUT");
+         webiopi.setFunction(23, "OUT");
+         webiopi.setFunction(24, "OUT");
+      });
+      function forward() {
+              webiopi.digitalWrite(8, 1);
+              webiopi.digitalWrite(7, 0);
+              webiopi.digitalWrite(23, 1);
+              webiopi.digitalWrite(24, 0);
+              button_color("#forward");
+      }
+      function back() {
+              webiopi.digitalWrite(8, 0);
+              webiopi.digitalWrite(7, 1);
+              webiopi.digitalWrite(23, 0);
+              webiopi.digitalWrite(24, 1);
+              button_color("#back");
+      }
+      function stop() {
+              webiopi.digitalWrite(8, 0);
+              webiopi.digitalWrite(7, 0);
+              webiopi.digitalWrite(23, 0);
+              webiopi.digitalWrite(24, 0);
+              button_color("#stop");
+      }
+      function right_forward() {
+              webiopi.digitalWrite(8, 1);
+              webiopi.digitalWrite(7, 0);
+              webiopi.digitalWrite(23, 0);
+              webiopi.digitalWrite(24, 0);
+              button_color("#right_forward");
+      }
+      function left_forward() {
+              webiopi.digitalWrite(8, 0);
+              webiopi.digitalWrite(7, 0);
+              webiopi.digitalWrite(23, 1);
+              webiopi.digitalWrite(24, 0);
+              button_color("#left_forward");
+      }
+      function right_back() {
+              webiopi.digitalWrite(8, 0);
+              webiopi.digitalWrite(7, 1);
+              webiopi.digitalWrite(23, 0);
+              webiopi.digitalWrite(24, 0);
+              button_color("#right_back");
+      }
+      function left_back() {
+              webiopi.digitalWrite(8, 0);
+              webiopi.digitalWrite(7, 0);
+              webiopi.digitalWrite(23, 0);
+              webiopi.digitalWrite(24, 1);
+              button_color("#left_back");
+      }
+      var last_id = "";
+      function button_color(id) {
+        $(last_id).css('background', "#808080");
+        $(id).css('background', "#CC0033");
+        last_id = id;
+      }
+  </script>
+  <body>
+    * Please Push Button. Control Tank.
+    <table>
+      <tr>
+        <td><button id="left_forward" type="button" onClick="left_forward()">↖️</button></td>
+        <td><button id="forward" type="button" onClick="forward()">⬆️</button></td>
+        <td><button id="right_forward" type="button" onClick="right_forward()">↗️</button></td>
+      </tr>      
+      <tr>
+          <td colspan="3" align="center"> <button id="stop" type="button" onClick="stop()">⏸</button>
+      </tr>      
+      <tr>
+          <td><button id="left_back" type="button" onClick="left_back()">↙️</button></td>
+          <td><button id="back" type="button" onClick="back()">⬆️</button></td>
+          <td><button id="right_back" type="button" onClick="right_back()">↗️</button></td>
+        </tr>      
+    </table>
+  </body>
+</html>
+    
